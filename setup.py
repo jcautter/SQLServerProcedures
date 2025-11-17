@@ -7,7 +7,7 @@ LONG_DESCRIPTION = 'SQL Server Procedures'
 # Setting up
 setup(
        # 'name' deve corresponder ao nome da pasta 'verysimplemodule'
-        name="SASProcedures", 
+        name="SQLServerProcedures", 
         version=VERSION,
         author="João Paulo Cautter",
         author_email="jcautter@gmail.com",
@@ -26,4 +26,5 @@ setup(
             "Operating System :: MacOS :: MacOS X",
             "Operating System :: Microsoft :: Windows",
         ]
+
 )
