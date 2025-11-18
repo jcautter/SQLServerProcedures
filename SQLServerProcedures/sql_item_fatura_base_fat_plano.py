@@ -9,19 +9,19 @@ from SQLLoader import SQLLoader
 
 class SQLItemFaturaBaseFatPlano(ProcLog):
     
-    def proc_item_fatura_base_fat_plano(self, trat=None):
-        self.__get_path()
-        self.get_file_list()
+    def proc_item_fatura_base_fat_plano(self, path_run, trat=None):
+        self.__get_path(path_run)
+        self.__file_list()
         
         for f in self.files[:]:
             self.__el(f, trat)
         
-    def __get_path(self):
-        with open('path.json', 'r') as f:
+    def __get_path(self, path_run):
+        with open(os.path.join(path_run, 'path.json'), 'r') as f:
             path_data = json.loads(f.read())
             self.path = os.path.join(path_data['path'].format(login=os.getlogin()), 'item_fatura')
         
-    def get_file_list(self):
+    def __file_list(self):
         self.files = [f for f in os.listdir(self.path) if f.endswith('.csv.zip') and f.startswith('ITEM_FATURA_BASE_FAT_PLANO')]
         
     def __get_query_insert(self):
@@ -65,6 +65,7 @@ class SQLItemFaturaBaseFatPlano(ProcLog):
             , compression='zip'
             , chunksize=50_000
     #         , on_bad_lines='warn'
+            , nrows=1_000
         )
         print('Read csv to Dataframe')
         
